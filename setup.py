@@ -9,7 +9,7 @@ def get_long_description(path):
 
 setup(
     name='gmaily',
-    version='0.0.1',
+    version='0.0.2',
     url='https://github.com/hallazzang/gmaily',
     license='MIT',
     author='Hanjun Kim',
