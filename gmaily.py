@@ -20,11 +20,19 @@ class Gmaily:
             return False
         return True
 
-    def inbox(self):
-        return SearchQuery('INBOX', self.client)
-
     def logout(self):
         self._client.logout()
+
+    def mailbox(self, name):
+        return SearchQuery(name, self.client)
+
+    def inbox(self):
+        # Shortcut for mailbox('INBOX')
+        return SearchQuery('INBOX', self.client)
+
+    def urgent(self):
+        # Shortcut for mailbox('URGENT')
+        return SearchQuery('URGENT', self.client)
 
 class SearchQuery:
     def __init__(self, mailbox, client):
@@ -41,6 +49,14 @@ class SearchQuery:
 
         return [Message(int(uid), self._client) for uid in data[0].split()]
 
+    def answered(self):
+        self._criterias.extend(['ANSWERED'])
+        return self
+
+    def bcc(self, string):
+        self._criterias.extend(['BCC', string])
+        return self
+
     def before(self, date):
         if not hasattr(date, 'strftime'):
             raise TypeError()
@@ -51,6 +67,22 @@ class SearchQuery:
         self._criterias.extend(['BODY', string])
         return self
 
+    def cc(self, string):
+        self._criterias.extend(['CC', string])
+        return self
+
+    def deleted(self):
+        self._criterias.extend(['DELETED'])
+        return self
+
+    def draft(self):
+        self._criterias.extend(['DRAFT'])
+        return self
+
+    def flagged(self):
+        self._criterias.extend(['FLAGGED'])
+        return self
+
     def from_(self, sender):
         self._criterias.extend(['FROM', sender])
         return self
@@ -59,9 +91,61 @@ class SearchQuery:
         # Shortcut for from_
         return self.from_(sender)
 
-    def header(self, field, value):
-        self._criterias.extend(['HEADER', field, value])
+    def header(self, field_name, string):
+        self._criterias.extend(['HEADER', field_name, string])
         return self
+
+    def keyword(self, flag):
+        self._criterias.extend(['KEYWORD', flag])
+        return self
+
+    def larger(self, n):
+        self._criterias.extend(['LARGER', str(n)])
+        return self
+
+    def new(self):
+        self._criterias.extend(['NEW'])
+        return self
+
+    def old(self):
+        self._criterias.extend(['OLD'])
+        return self
+
+    def on(self, date):
+        if not hasattr(date, 'strftime'):
+            raise TypeError()
+        self._criterias.extend(['ON', date.strftime('%d-%b-%Y')])
+        return self
+
+    def recent(self):
+        self._criterias.extend(['RECENT'])
+        return self
+
+    def seen(self):
+        self._criterias.extend(['SEEN'])
+        return self
+
+    def sentbefore(self, date):
+        if not hasattr(date, 'strftime'):
+            raise TypeError()
+        self._criterias.extend(['SENTBEFORE', date.strftime('%d-%b-%Y')])
+        return self
+
+    def senton(self, date):
+        if not hasattr(date, 'strftime'):
+            raise TypeError()
+        self._criterias.extend(['SENTON', date.strftime('%d-%b-%Y')])
+        return self
+
+    def sentsince(self, date):
+        if not hasattr(date, 'strftime'):
+            raise TypeError()
+        self._criterias.extend(['SENTSINCE', date.strftime('%d-%b-%Y')])
+        return self
+
+    def sentafter(self, date):
+        # Shortcut for sentsince
+        return self.sentsince(date)
 
     def since(self, date):
         if not hasattr(date, 'strftime'):
@@ -73,12 +157,44 @@ class SearchQuery:
         # Shortcut for since
         return self.since(date)
 
-    def subject(self, subject):
-        self._criterias.extend(['SUBJECT', subject])
+    def smaller(self, n):
+        self._criterias.extend(['SMALLER', str(n)])
         return self
 
-    def text(self, text):
-        self._criterias.extend(['TEXT', text])
+    def subject(self, string):
+        self._criterias.extend(['SUBJECT', string])
+        return self
+
+    def text(self, string):
+        self._criterias.extend(['TEXT', string])
+        return self
+
+    def to(self, string):
+        self._criterias.extend(['TO', to])
+        return self
+
+    def unanswered(self):
+        self._criterias.extend(['UNANSWERED'])
+        return self
+
+    def undeleted(self):
+        self._criterias.extend(['UNDELETED'])
+        return self
+
+    def undraft(self):
+        self._criterias.extend(['UNDRAFT'])
+        return self
+
+    def unflagged(self):
+        self._criterias.extend(['UNFLAGGED'])
+        return self
+
+    def unkeyword(self, flag):
+        self._criterias.extend(['UNKEYWORD', flag])
+        return self
+
+    def unseen(self):
+        self._criterias.extend(['UNSEEN'])
         return self
 
     def __repr__(self):

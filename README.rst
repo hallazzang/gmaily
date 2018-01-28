@@ -8,7 +8,7 @@ Features
 
 - [x] Clean API
 - [x] No other dependencies than standard libraries
-- [-] Supports all of the ``SEARCH`` criteria
+- [x] Supports all of the ``SEARCH`` criteria
 - [-] Supports access to all of the ``HEADER`` fields via attributes
 - [ ] Lazy loading for contents
 
@@ -44,6 +44,46 @@ Example
         print(msg.text)
 
     g.logout()
+
+Usage
+-----
+
+Searching Mailbox
+~~~~~~~~~~~~~~~~~
+
+``SearchQuery``, which is returned by some methods like ``Gmaily.inbox``
+supports method chaining and you can easily mix search criterias together:
+
+.. code:: python
+
+    two_weeks_ago = datetime.date.today() - datetime.timedelta(weeks=2)
+    msgs = g.inbox().by('john@example.com').before(two_weeks_ago)
+
+Alternatively, you can use other mailboxes than ``INBOX`` in the above example
+using ``Gmaily.mailbox`` method:
+
+.. code:: python
+
+    msgs = g.mailbox('URGENT').on(datetime.date.today())
+
+You can then execute the query and fetch the results using ``SearchQuery.all``:
+
+.. code:: python
+
+    print(msgs.all())
+
+You can find the full list of supported search criteria at `here
+https://tools.ietf.org/html/rfc3501#section-6.4.4`_. Note that ``ALL`` criteria
+is not present because it's the default criteria and ``SearchQuery.all`` stands
+for executing the query. Any other names like ``.fetch()``, ``.do()`` could be
+taken the place, but I chose the ``.all()`` because it looks similar than famous
+ORMs'.
+
+And some other criterias are omitted too:
+
+- ``NOT``
+- ``OR``
+- ``UID``
 
 Installation
 ------------
