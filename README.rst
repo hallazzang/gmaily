@@ -72,8 +72,8 @@ You can then execute the query and fetch the results using ``SearchQuery.all``:
 
     print(msgs.all())
 
-You can find the full list of supported search criteria at `here
-https://tools.ietf.org/html/rfc3501#section-6.4.4`_. Note that ``ALL`` criteria
+You can find the full list of supported criterias and their description at `here
+<https://tools.ietf.org/html/rfc3501#section-6.4.4>`_. Note that ``ALL`` criteria
 is not present because it's the default criteria and ``SearchQuery.all`` stands
 for executing the query. Any other names like ``.fetch()``, ``.do()`` could be
 taken the place, but I chose the ``.all()`` because it looks similar than famous
