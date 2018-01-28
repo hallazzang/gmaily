@@ -92,7 +92,7 @@ Currently it requires Python 3.
 
 .. code:: bash
 
-    $ pip install gmaily
+    $ pip3 install --upgrade gmaily
 
 License
 -------
