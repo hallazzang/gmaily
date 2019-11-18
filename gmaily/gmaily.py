@@ -6,6 +6,8 @@ import email.policy
 import email.iterators
 import imaplib
 
+__all__ = ("Gmaily", "SearchQuery", "Message", "Attachment")
+
 
 class Gmaily:
     @property
