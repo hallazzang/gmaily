@@ -19,22 +19,22 @@ from gmaily import Gmaily
 
 g = Gmaily()
 
-user_email = input('Email: ')
+user_email = input("Email: ")
 user_pw = getpass.getpass()
 
 if not g.login(user_email, user_pw):
-    print('Cannot login')
+    print("Cannot login")
     sys.exit(1)
 
 msgs = g.inbox().after(datetime.date.today() - datetime.timedelta(weeks=2))
 for msg in msgs.all():
-    print('\n' + (' Mail UID: %d ' % msg.uid).center(80, '=') + '\n')
-    print('Subject:', msg.subject)
-    print('From:', msg.sender)
-    print('Date:', msg.date)
-    print('Attachments:', msg.attachments)
+    print("\n" + (" Mail UID: %d " % msg.uid).center(80, "=") + "\n")
+    print("Subject:", msg.subject)
+    print("From:", msg.sender)
+    print("Date:", msg.date)
+    print("Attachments:", msg.attachments)
 
-    print('-' * 10)
+    print("-" * 10)
     print(msg.text)
 
 g.logout()
@@ -49,14 +49,14 @@ supports method chaining and you can easily mix search criterias together:
 
 ```python
 two_weeks_ago = datetime.date.today() - datetime.timedelta(weeks=2)
-msgs = g.inbox().by('john@example.com').before(two_weeks_ago)
+msgs = g.inbox().by("john@example.com").before(two_weeks_ago)
 ```
 
 Alternatively, you can use other mailboxes than `INBOX` in the above example
 using `Gmaily.mailbox` method:
 
 ```python
-msgs = g.mailbox('URGENT').on(datetime.date.today())
+msgs = g.mailbox("URGENT").on(datetime.date.today())
 ```
 
 You can then execute the query and fetch the results using `SearchQuery.all`:
@@ -79,6 +79,8 @@ Some other criterias are omitted too:
 - `UID`
 
 ## Installation
+
+It requires `Python>=3.5`.
 
 ```
 $ pip3 install -U gmaily
