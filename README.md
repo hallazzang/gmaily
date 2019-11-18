@@ -1,6 +1,6 @@
 # gmaily
 
-Unofficial gmail python client with pythonic API.
+Unofficial Gmail python client with pythonic API.
 
 ## Features
 
