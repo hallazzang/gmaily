@@ -1,40 +1,33 @@
 import os
-from setuptools import setup
+from setuptools import find_packages, setup
 
-BASE_PATH = os.path.dirname(os.path.abspath(__file__))
+here = os.path.abspath(os.path.dirname(__file__))
 
-def get_long_description(path):
-    with open(os.path.join(BASE_PATH, path)) as f:
-        return f.read()
+with open(os.path.join(here, "README.md"), encoding="utf-8") as f:
+    long_description = f.read()
 
 setup(
-    name='gmaily',
-    version='0.0.2',
-    url='https://github.com/hallazzang/gmaily',
-    license='MIT',
-    author='Hanjun Kim',
-    author_email='hallazzang@gmail.com',
-    description='Pythonic Gmail client',
-    long_description=get_long_description('README.rst'),
-    py_modules=['gmaily'],
-    python_requires='>=3',
-    zip_safe=False,
-    platforms='any',
+    name="gmaily",
+    version="0.0.3",
+    description="Unofficial Gmail python client with pythonic API.",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    url="https://github.com/hallazzang/gmaily",
+    author="Hanjun Kim",
+    author_email="hallazzang@gmail.com",
+    license="MIT",
+    python_requires=">=3.5",
+    packages=find_packages(),
+    include_package_data=True,
     classifiers=[
-        'Development Status :: 4 - Beta',
-        'License :: OSI Approved :: MIT License',
-        'Operating System :: OS Independent',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.0',
-        'Programming Language :: Python :: 3.1',
-        'Programming Language :: Python :: 3.2',
-        'Programming Language :: Python :: 3.3',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
-        'Topic :: Communications :: Email',
-        'Topic :: Software Development :: Libraries',
-        'Topic :: Software Development :: Libraries :: Python Modules',
-    ]
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Topic :: Communications :: Email",
+        "Topic :: Software Development :: Libraries",
+        "Topic :: Software Development :: Libraries :: Python Modules",
+    ],
 )
