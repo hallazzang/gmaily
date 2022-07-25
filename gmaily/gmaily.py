@@ -174,7 +174,7 @@ class SearchQuery:
         return self
 
     def to(self, string):
-        self._criterias.extend(["TO", to])
+        self._criterias.extend(["TO", string])
         return self
 
     def unanswered(self):
